@@ -1,0 +1,245 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mangalam
+Database changed
+mysql> use mangalam;
+Database changed
+mysql> create table dept(deptno int,dname varchar(20),loc varchar(20));
+Query OK, 0 rows affected (5.63 sec)
+
+mysql> create table emp(empno int,ename varchar(20),job varchar(20),mgr varchar(20),hiredate varchar(15),sal int,comm varchar(),deptno int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '),deptno int' at line 1
+mysql> create table emp(empno int,ename varchar(20),job varchar(20),mgr varchar(20),hiredate varchar(15),sal int,comm varchar(),deptno int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '),deptno int)' at line 1
+mysql> create table emp(empno int,ename varchar(20),job varchar(20),mgr varchar(20),hiredate varchar(15),sal int,comm varchar(20),deptno int);
+ERROR 1050 (42S01): Table 'emp' already exists
+mysql> create table emp1(empno int,ename varchar(20),job varchar(20),mgr varchar(20),hiredate varchar(15),sal int,comm varchar(20),deptno int);
+Query OK, 0 rows affected (1.74 sec)
+
+mysql> alter table emp1 drop sal;
+Query OK, 0 rows affected (1.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp1 values(10,"zaina","accountant","rojin","10/10/2015","20",101);
+Query OK, 1 row affected (0.70 sec)
+
+mysql> select * from emp1;
++-------+-------+------------+-------+------------+------+--------+
+| empno | ename | job        | mgr   | hiredate   | comm | deptno |
++-------+-------+------------+-------+------------+------+--------+
+|    10 | zaina | accountant | rojin | 10/10/2015 | 20   |    101 |
++-------+-------+------------+-------+------------+------+--------+
+1 row in set (0.19 sec)
+
+mysql> insert into emp1 values(11,"parvathy"," sr accountant","rojin","18/10/2010","30",102);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into emp1 values(11,"visal"," jr accountant","vasu","30/1/2020","40",103);
+Query OK, 1 row affected (0.26 sec)
+
+mysql> insert into emp1 values(12,"rojin","designer","vasu","24/10/2012","50",104);
+Query OK, 1 row affected (0.54 sec)
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------------+------+--------+
+| empno | ename    | job            | mgr   | hiredate   | comm | deptno |
++-------+----------+----------------+-------+------------+------+--------+
+|    10 | zaina    | accountant     | rojin | 10/10/2015 | 20   |    101 |
+|    11 | parvathy |  sr accountant | rojin | 18/10/2010 | 30   |    102 |
+|    11 | visal    |  jr accountant | vasu  | 30/1/2020  | 40   |    103 |
+|    12 | rojin    | designer       | vasu  | 24/10/2012 | 50   |    104 |
++-------+----------+----------------+-------+------------+------+--------+
+4 rows in set (0.02 sec)
+
+mysql> alter table emp1 drop hiredate;
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp1 add hiredate date;
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp1 hiredate values(2015/10/10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hiredate values(2015/10/10)' at line 1
+mysql> insert into emp1 (hiredate)values(2015/10/10);
+ERROR 1292 (22007): Incorrect date value: '20.150000000000000000' for column 'hiredate' at row 1
+mysql> update emp1 set hiredate="2015/10/10"
+    ->
+    -> ;n
+Query OK, 4 rows affected, 4 warnings (1.47 sec)
+Rows matched: 4  Changed: 4  Warnings: 4
+
+    -> n
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'n
+n' at line 1
+mysql> update emp1 set hiredate="2015/10/10";
+Query OK, 0 rows affected, 4 warnings (0.00 sec)
+Rows matched: 4  Changed: 0  Warnings: 4
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   |
++-------+----------+----------------+-------+------+--------+------------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2015-10-10 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2015-10-10 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2015-10-10 |
++-------+----------+----------------+-------+------+--------+------------+
+4 rows in set (0.29 sec)
+
+mysql> update emp1 set hiredate="2010/10/18" where ename="parvathy" ;
+Query OK, 1 row affected, 1 warning (0.31 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> update emp1 set hiredate="2020/1/30" where ename="visal" ;
+Query OK, 1 row affected, 1 warning (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> update emp1 set hiredate="2012/10/24" where ename="rojin" ;
+Query OK, 1 row affected, 1 warning (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   |
++-------+----------+----------------+-------+------+--------+------------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2010-10-18 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2020-01-30 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2012-10-24 |
++-------+----------+----------------+-------+------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp1 add sal int;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update emp1 set sal=80000 where ename="zaina" ;
+Query OK, 1 row affected (0.24 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp1 set sal=70000 where ename="parvathy" ;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp1 set sal=60000 where ename="visal" ;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp1 set sal=50000 where ename="rojin" ;
+Query OK, 1 row affected (0.22 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+-------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   | sal   |
++-------+----------+----------------+-------+------+--------+------------+-------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 | 80000 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2010-10-18 | 70000 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2020-01-30 | 60000 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2012-10-24 | 50000 |
++-------+----------+----------------+-------+------+--------+------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update emp1 set sal=(15/100)*sal where hiredate since 2010-10-18;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'since 2010-10-18' at line 1
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate where hiredate<=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where hiredate<=10' at line 1
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate where hiredate<="10";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where hiredate<="10"' at line 1
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate where hiredate<10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where hiredate<10' at line 1
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate where hiredate<10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where hiredate<10' at line 1
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate where hiredate < 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where hiredate < 10' at line 1
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate< 10;
+Query OK, 0 rows affected (0.53 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+-------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   | sal   |
++-------+----------+----------------+-------+------+--------+------------+-------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 | 80000 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2010-10-18 | 70000 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2020-01-30 | 60000 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2012-10-24 | 50000 |
++-------+----------+----------------+-------+------+--------+------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update emp1 set sal=(15/100)*sal where sysdate()-hiredate where hiredate < 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where hiredate < 10' at line 1
+mysql> update emp1 set sal=(15/100)*sal where(sysdate()-hiredate<10);
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+-------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   | sal   |
++-------+----------+----------------+-------+------+--------+------------+-------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 | 80000 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2010-10-18 | 70000 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2020-01-30 | 60000 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2012-10-24 | 50000 |
++-------+----------+----------------+-------+------+--------+------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update emp1 set sal=sal*1.15 where hiredate <dateadd(year,-10,getdate());
+ERROR 1305 (42000): FUNCTION mangalam.dateadd does not exist
+mysql> update emp1 set sal=sal*1.15 where datediff(current_date(),hiredate)>3650;
+Query OK, 2 rows affected (0.73 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+-------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   | sal   |
++-------+----------+----------------+-------+------+--------+------------+-------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 | 80000 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2010-10-18 | 80500 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2020-01-30 | 60000 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2012-10-24 | 57500 |
++-------+----------+----------------+-------+------+--------+------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> delete from emp1 where datediff(current_date(),hiredate)>10950;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from emp1;
++-------+----------+----------------+-------+------+--------+------------+-------+
+| empno | ename    | job            | mgr   | comm | deptno | hiredate   | sal   |
++-------+----------+----------------+-------+------+--------+------------+-------+
+|    10 | zaina    | accountant     | rojin | 20   |    101 | 2015-10-10 | 80000 |
+|    11 | parvathy |  sr accountant | rojin | 30   |    102 | 2010-10-18 | 80500 |
+|    11 | visal    |  jr accountant | vasu  | 40   |    103 | 2020-01-30 | 60000 |
+|    12 | rojin    | designer       | vasu  | 50   |    104 | 2012-10-24 | 57500 |
++-------+----------+----------------+-------+------+--------+------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select count(ename) from emp1  where mgr="rojin";
++--------------+
+| count(ename) |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.48 sec)
+
+mysql> select count(ename) from emp1  where mgr="vasu";
++--------------+
+| count(ename) |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.00 sec)
