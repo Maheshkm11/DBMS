@@ -1,0 +1,483 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create databse mangalam;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databse mangalam' at line 1
+mysql> create database mangalam;
+Query OK, 1 row affected (1.93 sec)
+
+mysql> use mangalam;
+Database changed
+mysql> create table purchase(pno int,salesman varchar(20),salesmanid int,item varchar(20),amount int,branch varchar(20),DOB varchar(10));
+Query OK, 0 rows affected (4.28 sec)
+
+mysql>
+mysql> insert into purchase values(150,"zaina",101,"shoes",2500,"ktm",6/2/2001);
+ERROR 1406 (22001): Data too long for column 'DOB' at row 1
+mysql> insert into purchase values(150,"zaina",101,"shoes",2500,"ktm","6/2/2001");
+Query OK, 1 row affected (0.55 sec)
+
+mysql> select * from purchase;
++------+----------+------------+-------+--------+--------+----------+
+| pno  | salesman | salesmanid | item  | amount | branch | DOB      |
++------+----------+------------+-------+--------+--------+----------+
+|  150 | zaina    |        101 | shoes |   2500 | ktm    | 6/2/2001 |
++------+----------+------------+-------+--------+--------+----------+
+1 row in set (0.09 sec)
+
+mysql> insert into purchase values(155,"alvin",102,"bottle",1080,"chaganasherry","12/8/2001");
+Query OK, 1 row affected (0.31 sec)
+
+mysql> insert into purchase values(160,"anandhu",103,"bag",1500,"idukki","5/5/2002");
+Query OK, 1 row affected (0.22 sec)
+
+mysql> insert into purchase values(165,"nandhu",104,"vegetables",750,"mundakayam","2/10/2001");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into purchase values(170,"abin",105,"cloth",2000,"allepy","28/1/2002");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into purchase values(175,"devan",106,"makeup",1512,"ktm","4/4/2001");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from purchase;
++------+----------+------------+------------+--------+---------------+-----------+
+| pno  | salesman | salesmanid | item       | amount | branch        | DOB       |
++------+----------+------------+------------+--------+---------------+-----------+
+|  150 | zaina    |        101 | shoes      |   2500 | ktm           | 6/2/2001  |
+|  155 | alvin    |        102 | bottle     |   1080 | chaganasherry | 12/8/2001 |
+|  160 | anandhu  |        103 | bag        |   1500 | idukki        | 5/5/2002  |
+|  165 | nandhu   |        104 | vegetables |    750 | mundakayam    | 2/10/2001 |
+|  170 | abin     |        105 | cloth      |   2000 | allepy        | 28/1/2002 |
+|  175 | devan    |        106 | makeup     |   1512 | ktm           | 4/4/2001  |
++------+----------+------------+------------+--------+---------------+-----------+
+6 rows in set (0.08 sec)
+
+mysql> select count amount from purchase;
+ERROR 1054 (42S22): Unknown column 'count' in 'field list'
+mysql> select count (amount) from purchase;
+ERROR 1630 (42000): FUNCTION mangalam.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select sum(amount) from purchase where branch=ktm;
+ERROR 1054 (42S22): Unknown column 'ktm' in 'where clause'
+mysql> select sum(amount) from purchase where branch="ktm";
++-------------+
+| sum(amount) |
++-------------+
+|        4012 |
++-------------+
+1 row in set (0.26 sec)
+
+mysql> select sum(amount) from purchase where branch="changanasherry";
++-------------+
+| sum(amount) |
++-------------+
+|        NULL |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(amount) from purchase where branch="idukki";
++-------------+
+| sum(amount) |
++-------------+
+|        1500 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> select sum(amount) from purchase where branch="mundakayam";
++-------------+
+| sum(amount) |
++-------------+
+|         750 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(amount) from purchase where branch="allepy";
++-------------+
+| sum(amount) |
++-------------+
+|        2000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(amount) from purchase where branch="c";
++-------------+
+| sum(amount) |
++-------------+
+|        NULL |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(amount) from purchase where branch="changanasherry";
++-------------+
+| sum(amount) |
++-------------+
+|        NULL |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(amount) from purchase where branch="chaganasherry";
++-------------+
+| sum(amount) |
++-------------+
+|        1080 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(amount) from purchase where branch="ktm";
++-------------+
+| avg(amount) |
++-------------+
+|   2006.0000 |
++-------------+
+1 row in set (0.10 sec)
+
+mysql> select avg(amount) from purchase where branch="chaganasherry";
++-------------+
+| avg(amount) |
++-------------+
+|   1080.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select salesman from purchase where amount<="3000";
++----------+
+| salesman |
++----------+
+| zaina    |
+| alvin    |
+| anandhu  |
+| nandhu   |
+| abin     |
+| devan    |
++----------+
+6 rows in set (0.11 sec)
+
+mysql> select count(salesman) from purchase where amount<="3000";
++-----------------+
+| count(salesman) |
++-----------------+
+|               6 |
++-----------------+
+1 row in set (0.38 sec)
+
+mysql> select * from purchase order by salesman;
++------+----------+------------+------------+--------+---------------+-----------+
+| pno  | salesman | salesmanid | item       | amount | branch        | DOB       |
++------+----------+------------+------------+--------+---------------+-----------+
+|  170 | abin     |        105 | cloth      |   2000 | allepy        | 28/1/2002 |
+|  155 | alvin    |        102 | bottle     |   1080 | chaganasherry | 12/8/2001 |
+|  160 | anandhu  |        103 | bag        |   1500 | idukki        | 5/5/2002  |
+|  175 | devan    |        106 | makeup     |   1512 | ktm           | 4/4/2001  |
+|  165 | nandhu   |        104 | vegetables |    750 | mundakayam    | 2/10/2001 |
+|  150 | zaina    |        101 | shoes      |   2500 | ktm           | 6/2/2001  |
++------+----------+------------+------------+--------+---------------+-----------+
+6 rows in set (0.15 sec)
+
+mysql> select from purchase order by salesman;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from purchase order by salesman' at line 1
+mysql> create table emp(empno int,empname varchar(20),job varchar(20),basic int,DA int,HRA int,PF int,grosspay int,netpay int);
+Query OK, 0 rows affected (5.20 sec)
+
+mysql> insert into emp values(11,"zaina","hr",85000,1500,1000,3000,);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> truncate table emp;
+Query OK, 0 rows affected (0.94 sec)
+
+mysql> create table emp(empno int,empname varchar(20),job varchar(20),basic int);
+ERROR 1050 (42S01): Table 'emp' already exists
+mysql> DROP table emp;
+Query OK, 0 rows affected (0.79 sec)
+
+mysql> create table emp(empno int,empname varchar(20),job varchar(20),basic int);
+Query OK, 0 rows affected (0.59 sec)
+
+mysql> insert into emp values(11,"zaina","hr",85000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> SELECT * FROM EMP;
++-------+---------+------+-------+
+| empno | empname | job  | basic |
++-------+---------+------+-------+
+|    11 | zaina   | hr   | 85000 |
++-------+---------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(12,"ALVIN","ACCOUNTANT",40000);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into emp values(13,"ROJIN","DESIGNER",60000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(14,"NANDHU","SALESMAN",30000);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into emp values(15,"ANANDHU","MANAGER",70000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+
+| empno | empname | job        | basic |
++-------+---------+------------+-------+
+|    11 | zaina   | hr         | 85000 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 |
+|    13 | ROJIN   | DESIGNER   | 60000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |
+|    15 | ANANDHU | MANAGER    | 70000 |
++-------+---------+------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMP ADD(DA INT);
+Query OK, 0 rows affected (0.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET DA=(30/100)*basic;
+Query OK, 5 rows affected (0.14 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+
+| empno | empname | job        | basic | DA    |
++-------+---------+------------+-------+-------+
+|    11 | zaina   | hr         | 85000 | 25500 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 12000 |
+|    13 | ROJIN   | DESIGNER   | 60000 | 18000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |  9000 |
+|    15 | ANANDHU | MANAGER    | 70000 | 21000 |
++-------+---------+------------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMP ADD(HRA INT);
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET DA=(40/100)*basic;
+Query OK, 5 rows affected (0.02 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+------+
+| empno | empname | job        | basic | DA    | HRA  |
++-------+---------+------------+-------+-------+------+
+|    11 | zaina   | hr         | 85000 | 34000 | NULL |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 16000 | NULL |
+|    13 | ROJIN   | DESIGNER   | 60000 | 24000 | NULL |
+|    14 | NANDHU  | SALESMAN   | 30000 | 12000 | NULL |
+|    15 | ANANDHU | MANAGER    | 70000 | 28000 | NULL |
++-------+---------+------------+-------+-------+------+
+5 rows in set (0.02 sec)
+
+mysql> ALTER TABLE EMP DROP DA;
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMP DROP HRA;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMP ADD(DA INT);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET DA=(30/100)*basic;
+Query OK, 5 rows affected (0.10 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+
+| empno | empname | job        | basic | DA    |
++-------+---------+------------+-------+-------+
+|    11 | zaina   | hr         | 85000 | 25500 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 12000 |
+|    13 | ROJIN   | DESIGNER   | 60000 | 18000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |  9000 |
+|    15 | ANANDHU | MANAGER    | 70000 | 21000 |
++-------+---------+------------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMP ADD(HRA INT);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET HRA=(40/100)*basic;
+Query OK, 5 rows affected (0.10 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+-------+
+| empno | empname | job        | basic | DA    | HRA   |
++-------+---------+------------+-------+-------+-------+
+|    11 | zaina   | hr         | 85000 | 25500 | 34000 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 12000 | 16000 |
+|    13 | ROJIN   | DESIGNER   | 60000 | 18000 | 24000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |  9000 | 12000 |
+|    15 | ANANDHU | MANAGER    | 70000 | 21000 | 28000 |
++-------+---------+------------+-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMP ADD(PF INT);
+Query OK, 0 rows affected (1.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET PF=(10/100)*basic;
+Query OK, 5 rows affected (0.69 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+-------+------+
+| empno | empname | job        | basic | DA    | HRA   | PF   |
++-------+---------+------------+-------+-------+-------+------+
+|    11 | zaina   | hr         | 85000 | 25500 | 34000 | 8500 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 12000 | 16000 | 4000 |
+|    13 | ROJIN   | DESIGNER   | 60000 | 18000 | 24000 | 6000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |  9000 | 12000 | 3000 |
+|    15 | ANANDHU | MANAGER    | 70000 | 21000 | 28000 | 7000 |
++-------+---------+------------+-------+-------+-------+------+
+5 rows in set (0.01 sec)
+
+mysql> ALTER TABLE EMP ADD(GROSS INT);
+Query OK, 0 rows affected (2.73 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMP DROP COLUMN GROSS;
+Query OK, 0 rows affected (2.90 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMP ADD(GROSS PAY INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PAY INT)' at line 1
+mysql> ALTER TABLE EMP ADD(GROSS_PAY INT);
+Query OK, 0 rows affected (1.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET GROSS_PAY=BASIC+DA+HRA;
+Query OK, 5 rows affected (0.17 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+-------+------+-----------+
+| empno | empname | job        | basic | DA    | HRA   | PF   | GROSS_PAY |
++-------+---------+------------+-------+-------+-------+------+-----------+
+|    11 | zaina   | hr         | 85000 | 25500 | 34000 | 8500 |    144500 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 12000 | 16000 | 4000 |     68000 |
+|    13 | ROJIN   | DESIGNER   | 60000 | 18000 | 24000 | 6000 |    102000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |  9000 | 12000 | 3000 |     51000 |
+|    15 | ANANDHU | MANAGER    | 70000 | 21000 | 28000 | 7000 |    119000 |
++-------+---------+------------+-------+-------+-------+------+-----------+
+5 rows in set (0.02 sec)
+
+mysql> ALTER TABLE EMP ADD(NET_PAY INT);
+Query OK, 0 rows affected (0.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMP SET NET_PAY=GROSS_PAY-PF;
+Query OK, 5 rows affected (0.33 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+---------+------------+-------+-------+-------+------+-----------+---------+
+| empno | empname | job        | basic | DA    | HRA   | PF   | GROSS_PAY | NET_PAY |
++-------+---------+------------+-------+-------+-------+------+-----------+---------+
+|    11 | zaina   | hr         | 85000 | 25500 | 34000 | 8500 |    144500 |  136000 |
+|    12 | ALVIN   | ACCOUNTANT | 40000 | 12000 | 16000 | 4000 |     68000 |   64000 |
+|    13 | ROJIN   | DESIGNER   | 60000 | 18000 | 24000 | 6000 |    102000 |   96000 |
+|    14 | NANDHU  | SALESMAN   | 30000 |  9000 | 12000 | 3000 |     51000 |   48000 |
+|    15 | ANANDHU | MANAGER    | 70000 | 21000 | 28000 | 7000 |    119000 |  112000 |
++-------+---------+------------+-------+-------+-------+------+-----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT MIN(BASIC) FROM EMP WHERE JOB="HR";
++------------+
+| MIN(BASIC) |
++------------+
+|      85000 |
++------------+
+1 row in set (0.13 sec)
+
+mysql> SELECT MIN(BASIC) FROM EMP WHERE JOB="ACCOUNTANT";
++------------+
+| MIN(BASIC) |
++------------+
+|      40000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(BASIC) FROM EMP WHERE GROUP BY JOB;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY JOB' at line 1
+mysql> SELECT MIN(BASIC) FROM EMP WHERE JOB GROUP BY BASIC;
+Empty set, 4 warnings (1.55 sec)
+
+mysql> SELECT EMPNAME FROM EMP WHERE MIN(BASIC);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT EMPNAME FROM EMP WHERE MIN(BASIC) GROUP BY BASIC;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT EMPNAME FROM EMP WHERE MIN(BASIC) GROUP BY EMPNAME;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT * FROM EMP WHRE GROSS_PAY WHERE BETWEEN 10000 AND 20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROSS_PAY WHERE BETWEEN 10000 AND 20000' at line 1
+mysql> SELECT * FROM EMP WHERE GROSS_PAY WHERE BETWEEN 10000 AND 20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE BETWEEN 10000 AND 20000' at line 1
+mysql> SELECT * FROM EMP WHERE GROSS_PAY BETWEEN 10000 AND 20000;
+Empty set (0.21 sec)
+
+mysql> SELECT * FROM EMP WHERE GROSS_PAY BETWEEN 1000 AND 20000;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE GROSS_PAY BETWEEN 50000 AND 60000;
++-------+---------+----------+-------+------+-------+------+-----------+---------+
+| empno | empname | job      | basic | DA   | HRA   | PF   | GROSS_PAY | NET_PAY |
++-------+---------+----------+-------+------+-------+------+-----------+---------+
+|    14 | NANDHU  | SALESMAN | 30000 | 9000 | 12000 | 3000 |     51000 |   48000 |
++-------+---------+----------+-------+------+-------+------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(BASIC) FROM EMP;
++------------+
+| MAX(BASIC) |
++------------+
+|      85000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EMPNAME WHERE MAX(BASIC) FROM EMP;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM EMP' at line 1
+mysql> SELECT MAX(BASIC) FROM EMP;
++------------+
+| MAX(BASIC) |
++------------+
+|      85000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(BASIC) FROM EMP GROUP BY JOB;
++------------+
+| MIN(BASIC) |
++------------+
+|      85000 |
+|      40000 |
+|      60000 |
+|      30000 |
+|      70000 |
++------------+
+5 rows in set (0.08 sec)
+
+mysql> SELECT* FROM EMP WHERE GROSS_PAY=(SELECT MAX(GROSSPAY)FROM EMP);
+ERROR 1054 (42S22): Unknown column 'GROSSPAY' in 'field list'
+mysql> SELECT* FROM EMP WHERE GROSS_PAY=(SELECT MAX(GROSS_PAY)FROM EMP);
++-------+---------+------+-------+-------+-------+------+-----------+---------+
+| empno | empname | job  | basic | DA    | HRA   | PF   | GROSS_PAY | NET_PAY |
++-------+---------+------+-------+-------+-------+------+-----------+---------+
+|    11 | zaina   | hr   | 85000 | 25500 | 34000 | 8500 |    144500 |  136000 |
++-------+---------+------+-------+-------+-------+------+-----------+---------+
+1 row in set (0.08 sec)
+
+mysql>
+mysql>
