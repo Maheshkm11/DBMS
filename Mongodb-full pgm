@@ -1,0 +1,944 @@
+                                            MONGODB
+                              ====================================
+1.Create database stud and collection named details.
+      test> use stud;
+      switched to db stud
+      stud> db.createCollection('details');
+      { ok: 1 }
+2. Insert 10 data to that collection.
+      stud> db.details.insert({roll:2,sname:'sam',dpmt:'it',sem:3,cgpa:5});
+     {eprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+     acknowledged: true,
+     insertedIds: { '0': ObjectId('660a348660b9837a758bf203') }
+    } insertedIds: { '0': ObjectId('660a348560b9837a758bf202') }
+       stud> db.details.insert({roll:3,sname:'dane',dpmt:'ai',sem:6,cgpa:6});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf204') }
+      }
+      stud> db.details.insert( {roll:4,sname:'mary',dpmt:'ece',sem:5,cgpa:6});
+      {
+        acknowledged: true,
+      insertedIds: { '0': ObjectId('660a348660b9837a758bf205') }
+      }
+      stud> db.details.insert({roll:5,sname:'rani',dpmt:'eee',sem:5,cgpa:8});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf206') }
+      }
+      stud> db.details.insert({roll:6,sname:'rony',dpmt:'cse',sem:4,cgpa:8});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf207') }
+      }
+      stud> db.details.insert({roll:7,sname:'ajay',dpmt:'cse',sem:4,cgpa:7});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf208') }
+      }
+      stud> db.details.insert({roll:8,sname:'jony',dpmt:'cse',sem:3,cgpa:6});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf209') }
+      }
+      stud> db.details.insert({roll:9,sname:'sony',dpmt:'eee',sem:3,cgpa:6});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf20a') }
+      }
+      stud> db.details.insert({roll:10,sname:'sradha',dpmt:'eee',sem:7,cgpa:9});
+      {
+        acknowledged: true,
+        insertedIds: { '0': ObjectId('660a348660b9837a758bf20b') }
+      }
+3. show all the data in that collection.
+      stud>  db.details.find()
+      [
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf203'),
+          roll: 2,
+          sname: 'sam',
+          dpmt: 'it',
+          sem: 3,
+          cgpa: 5
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf204'),
+          roll: 3,
+          sname: 'dane',
+          dpmt: 'ai',
+          sem: 6,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf205'),
+          roll: 4,
+          sname: 'mary',
+          dpmt: 'ece',
+          sem: 5,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf206'),
+          roll: 5,
+          sname: 'rani',
+          dpmt: 'eee',
+          sem: 5,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20a'),
+          roll: 9,
+          sname: 'sony',
+          dpmt: 'eee',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20b'),
+          roll: 10,
+          sname: 'sradha',
+          dpmt: 'eee',
+          sem: 7,
+          cgpa: 9
+        }
+      ]
+
+4.Display all the students in cse.
+      stud>  db.details.find({dpmt:'cse'});
+      [
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        }
+      ]
+
+5. Display students in ascending order of name.
+    stud> db.details.find().sort({sname:1});
+    [
+      {
+        _id: ObjectId('660a348660b9837a758bf208'),
+        roll: 7,
+        sname: 'ajay',
+        dpmt: 'cse',
+        sem: 4,
+        cgpa: 7
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf204'),
+        roll: 3,
+        sname: 'dane',
+        dpmt: 'ai',
+        sem: 6,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf209'),
+        roll: 8,
+        sname: 'jony',
+        dpmt: 'cse',
+        sem: 3,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf205'),
+        roll: 4,
+        sname: 'mary',
+        dpmt: 'ece',
+        sem: 5,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348560b9837a758bf202'),
+        roll: 1,
+        sname: 'ram',
+        dpmt: 'cse',
+        sem: 2,
+        cgpa: 7
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf206'),
+        roll: 5,
+        sname: 'rani',
+        dpmt: 'eee',
+        sem: 5,
+        cgpa: 8
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf207'),
+        roll: 6,
+        sname: 'rony',
+        dpmt: 'cse',
+        sem: 4,
+        cgpa: 8
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf203'),
+        roll: 2,
+        sname: 'sam',
+        dpmt: 'it',
+        sem: 3,
+        cgpa: 5
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf20a'),
+        roll: 9,
+        sname: 'sony',
+        dpmt: 'eee',
+        sem: 3,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf20b'),
+        roll: 10,
+        sname: 'sradha',
+        dpmt: 'eee',
+        sem: 7,
+        cgpa: 9
+      }
+    ]
+
+6.List first five students.
+    stud> db.details.find().limit(5)
+    [
+      {
+        _id: ObjectId('660a348560b9837a758bf202'),
+        roll: 1,
+        sname: 'ram',
+        dpmt: 'cse',
+        sem: 2,
+        cgpa: 7
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf203'),
+        roll: 2,
+        sname: 'sam',
+        dpmt: 'it',
+        sem: 3,
+        cgpa: 5
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf204'),
+        roll: 3,
+        sname: 'dane',
+        dpmt: 'ai',
+        sem: 6,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf205'),
+        roll: 4,
+        sname: 'mary',
+        dpmt: 'ece',
+        sem: 5,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf206'),
+        roll: 5,
+        sname: 'rani',
+        dpmt: 'eee',
+        sem: 5,
+        cgpa: 8
+      }
+    ]
+
+7.Display  students 5,6,7.
+    stud> db.details.find().skip(4).limit(3)
+    [
+      {
+        _id: ObjectId('660a348660b9837a758bf206'),
+        roll: 5,
+        sname: 'rani',
+        dpmt: 'eee',
+        sem: 5,
+        cgpa: 8
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf207'),
+        roll: 6,
+        sname: 'rony',
+        dpmt: 'cse',
+        sem: 4,
+        cgpa: 8
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf208'),
+        roll: 7,
+        sname: 'ajay',
+        dpmt: 'cse',
+        sem: 4,
+        cgpa: 7
+      }
+    ]
+
+8. Display students details of 5,6,7 in descending order of percentage.
+    stud> db.details.find().sort({cgpa:-1}).skip(4).limit(3)
+    [
+      {
+        _id: ObjectId('660a348660b9837a758bf208'),
+        roll: 7,
+        sname: 'ajay',
+        dpmt: 'cse',
+        sem: 4,
+        cgpa: 7
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf205'),
+        roll: 4,
+        sname: 'mary',
+        dpmt: 'ece',
+        sem: 5,
+        cgpa: 6
+      },
+      {
+        _id: ObjectId('660a348660b9837a758bf209'),
+        roll: 8,
+        sname: 'jony',
+        dpmt: 'cse',
+        sem: 3,
+        cgpa: 6
+      }
+    ]
+9.display all students in ascending order of cgpa.
+      stud> db.details.find().sort({cgpa:-1});
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf20b'),
+          roll: 10,
+          sname: 'sradha',
+          dpmt: 'eee',
+          sem: 7,
+          cgpa: 9
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf206'),
+          roll: 5,
+          sname: 'rani',
+          dpmt: 'eee',
+          sem: 5,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf204'),
+          roll: 3,
+          sname: 'dane',
+          dpmt: 'ai',
+          sem: 6,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf205'),
+          roll: 4,
+          sname: 'mary',
+          dpmt: 'ece',
+          sem: 5,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20a'),
+          roll: 9,
+          sname: 'sony',
+          dpmt: 'eee',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf203'),
+          roll: 2,
+          sname: 'sam',
+          dpmt: 'it',
+          sem: 3,
+          cgpa: 5
+        }
+      ]
+
+10. Display the number of students in eee.
+      stud> db.details.find({dpmt:'eee'}).count();
+        3
+11.Display all the degrees without _id.
+       stud> db.details.find({},{_id:0})
+      [
+        { roll: 1, sname: 'ram', dpmt: 'cse', sem: 2, cgpa: 7 },
+        { roll: 2, sname: 'sam', dpmt: 'it', sem: 3, cgpa: 5 },
+        { roll: 3, sname: 'dane', dpmt: 'ai', sem: 6, cgpa: 6 },
+        { roll: 4, sname: 'mary', dpmt: 'ece', sem: 5, cgpa: 6 },
+        { roll: 5, sname: 'rani', dpmt: 'eee', sem: 5, cgpa: 8 },
+        { roll: 6, sname: 'rony', dpmt: 'cse', sem: 4, cgpa: 8 },
+        { roll: 7, sname: 'ajay', dpmt: 'cse', sem: 4, cgpa: 7 },
+        { roll: 8, sname: 'jony', dpmt: 'cse', sem: 3, cgpa: 6 },
+        { roll: 9, sname: 'sony', dpmt: 'eee', sem: 3, cgpa: 6 },
+        { roll: 10, sname: 'sradha', dpmt: 'eee', sem: 7, cgpa: 9 }
+      ]
+
+12.display all students in cse and sem 4.
+      stud> db.details.find({$and:[{dpmt:'cse'},{sem:4}]})
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        }
+      ]
+
+13.display all students with cgpa range 4 and 7.
+      stud> db.details.find({cgpa:{$gt:4,$lt:7}});
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf203'),
+          roll: 2,
+          sname: 'sam',
+          dpmt: 'it',
+          sem: 3,
+          cgpa: 5
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf204'),
+          roll: 3,
+          sname: 'dane',
+          dpmt: 'ai',
+          sem: 6,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf205'),
+          roll: 4,
+          sname: 'mary',
+          dpmt: 'ece',
+          sem: 5,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20a'),
+          roll: 9,
+          sname: 'sony',
+          dpmt: 'eee',
+          sem: 3,
+          cgpa: 6
+        }
+      ]
+
+14.Display all students in dpmt cse.
+      stud> db.details.find({dpmt:'cse'});
+      [
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        }
+      ]
+
+15.Display cgpa of jony.
+    stud> db.details.find({sname:'jony'},{cgpa:1})
+    [ { _id: ObjectId('660a348660b9837a758bf209'), cgpa: 6 } ]
+
+16.Display department of ajay.
+    stud> db.details.find({sname:'ajay'},{dpmt:1})
+    [ { _id: ObjectId('660a348660b9837a758bf208'), dpmt: 'cse' } ]
+
+17. Display all students whose cgpa greater than 7.
+        stud> db.details.find({cgpa:{$gt:7}});
+        [
+          {
+            _id: ObjectId('660a348660b9837a758bf206'),
+            roll: 5,
+            sname: 'rani',
+            dpmt: 'eee',
+            sem: 5,
+            cgpa: 8
+          },
+          {
+            _id: ObjectId('660a348660b9837a758bf207'),
+            roll: 6,
+            sname: 'rony',
+            dpmt: 'cse',
+            sem: 4,
+            cgpa: 8
+          },
+          {
+            _id: ObjectId('660a348660b9837a758bf20b'),
+            roll: 10,
+            sname: 'sradha',
+            dpmt: 'eee',
+            sem: 7,
+            cgpa: 9
+          }
+        ]
+
+18.Diplay students whose department is in eee or ai.
+      stud> db.details.find({dpmt:{$in:['eee','ai']}});
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf204'),
+          roll: 3,
+          sname: 'dane',
+          dpmt: 'ai',
+          sem: 6,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf206'),
+          roll: 5,
+          sname: 'rani',
+          dpmt: 'eee',
+          sem: 5,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20a'),
+          roll: 9,
+          sname: 'sony',
+          dpmt: 'eee',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20b'),
+          roll: 10,
+          sname: 'sradha',
+          dpmt: 'eee',
+          sem: 7,
+          cgpa: 9
+        }
+      ]
+
+19.Find all students whose name starts with j.
+      stud> db.details.find({sname:/^j/});
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        }
+      ]
+
+20.Find names of all students whose dpmt in eee and cgpa 9.
+    stud> db.details.find({dpmt:'eee',cgpa:9},{sname:1});
+    [ { _id: ObjectId('660a348660b9837a758bf20b'), sname: 'sradha' } ]
+
+21. Display the details of the student who secured the highest cgpa in the course cse.
+    stud> db.details.find({dpmt:"cse"}).sort({cgpa:-1}).limit(1)
+    [
+      {
+        _id: ObjectId('660a348660b9837a758bf207'),
+        roll: 6,
+        sname: 'rony',
+        dpmt: 'cse',
+        sem: 4,
+        cgpa: 8
+      }
+    ]
+
+22.Display students in cse in descending order of cgpa.
+      stud> db.details.find({dpmt:"cse"}).sort({cgpa:-1})
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        }
+      ]
+
+23.Display students in cse ascending order of cgpa.
+        stud> db.details.find({dpmt:"cse"}).sort({cgpa:1})
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        }
+      ]
+
+24.Display student in cse who have lowest cgpa.
+      stud> db.details.find({dpmt:"cse"}).sort({cgpa:1})
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf209'),
+          roll: 8,
+          sname: 'jony',
+          dpmt: 'cse',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348560b9837a758bf202'),
+          roll: 1,
+          sname: 'ram',
+          dpmt: 'cse',
+          sem: 2,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf208'),
+          roll: 7,
+          sname: 'ajay',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 7
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf207'),
+          roll: 6,
+          sname: 'rony',
+          dpmt: 'cse',
+          sem: 4,
+          cgpa: 8
+        }
+      ]
+
+25. Display the names of the top three students in the cse dpmt.
+        stud> db.details.find({dpmt:'eee'},{sname:1}).sort({cgpa:-1}).limit(3)
+      [
+        { _id: ObjectId('660a348660b9837a758bf20b'), sname: 'sradha' },
+        { _id: ObjectId('660a348660b9837a758bf206'), sname: 'rani' },
+        { _id: ObjectId('660a348660b9837a758bf20a'), sname: 'sony' }
+      ]
+
+26.Display  the names and sem of student who have cgpa greater than 6 and in cse dpmt.
+
+      stud> db.details.find({dpmt:'cse',cgpa:{$gt:6}},{sname:1,sem:1});
+      [
+        { _id: ObjectId('660a348560b9837a758bf202'), sname: 'ram', sem: 2 },
+        { _id: ObjectId('660a348660b9837a758bf207'), sname: 'rony', sem: 4 },
+        { _id: ObjectId('660a348660b9837a758bf208'), sname: 'ajay', sem: 4 }
+      ]
+
+27. Display  name and sem of  one student who have cgpa greater than 6 and in cse dpmt.
+        stud> db.details.find({dpmt:'cse',cgpa:{$gt:6}},{sname:1,sem:1}).limit(1)
+        [ { _id: ObjectId('660a348560b9837a758bf202'), sname: 'ram', sem: 2 } ]
+
+28.Display details of students who have cgpa greater than 6 and less than 9.
+            stud> db.details.find({cgpa:{$gt:6,$lt:9}})
+            [
+              {
+                _id: ObjectId('660a348560b9837a758bf202'),
+                roll: 1,
+                sname: 'ram',
+                dpmt: 'cse',
+                sem: 2,
+                cgpa: 7
+              },
+              {
+                _id: ObjectId('660a348660b9837a758bf206'),
+                roll: 5,
+                sname: 'rani',
+                dpmt: 'eee',
+                sem: 5,
+                cgpa: 8
+              },
+              {
+                _id: ObjectId('660a348660b9837a758bf207'),
+                roll: 6,
+                sname: 'rony',
+                dpmt: 'cse',
+                sem: 4,
+                cgpa: 8
+              },
+              {
+                _id: ObjectId('660a348660b9837a758bf208'),
+                roll: 7,
+                sname: 'ajay',
+                dpmt: 'cse',
+                sem: 4,
+                cgpa: 7
+              }
+            ]
+
+
+29 Display all students in eee dpmt.
+        stud> db.details.find({dpmt:'eee'})
+      [
+        {
+          _id: ObjectId('660a348660b9837a758bf206'),
+          roll: 5,
+          sname: 'rani',
+          dpmt: 'eee',
+          sem: 5,
+          cgpa: 8
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20a'),
+          roll: 9,
+          sname: 'sony',
+          dpmt: 'eee',
+          sem: 3,
+          cgpa: 6
+        },
+        {
+          _id: ObjectId('660a348660b9837a758bf20b'),
+          roll: 10,
+          sname: 'sradha',
+          dpmt: 'eee',
+          sem: 7,
+          cgpa: 9
+        }
+      ]
+
+30.Display students who not belong to either cse,eee,ece.
+        stud> db.details.find({dpmt:{$nin:['cse','ece','eee']}})
+        [
+          {
+            _id: ObjectId('660a348660b9837a758bf203'),
+            roll: 2,
+            sname: 'sam',
+            dpmt: 'it',
+            sem: 3,
+            cgpa: 5
+          },
+          {
+            _id: ObjectId('660a348660b9837a758bf204'),
+            roll: 3,
+            sname: 'dane',
+            dpmt: 'ai',
+            sem: 6,
+            cgpa: 6
+          }
+        ]
+
+
+31.Display all sem 3 students who belong to either cse,eee, ece.
+        stud> db.details.find({$and:[{sem:3},{dpmt:{$in:['cse','ece','eee']}}]})
+        [
+          {
+            _id: ObjectId('660a348660b9837a758bf209'),
+            roll: 8,
+            sname: 'jony',
+            dpmt: 'cse',
+            sem: 3,
+            cgpa: 6
+          },
+          {
+            _id: ObjectId('660a348660b9837a758bf20a'),
+            roll: 9,
+            sname: 'sony',
+            dpmt: 'eee',
+            sem: 3,
+            cgpa: 6
+          }
+        ]
+
+32.Update sem of ram to 4.
+        stud> db.details.updateOne({sname:'ram'},{$set:{sem:4}})
+        {
+          acknowledged: true,
+          insertedId: null,
+          matchedCount: 1,
+          modifiedCount: 1,
+          upsertedCount: 0
+        }
+
+33.update multiple records
+Update all students in dpmt eee as sem2.
+
+      stud> db.details.updateMany({dpmt:'eee'},{$set:{sem:2}})
+      {
+        acknowledged: true,
+        insertedId: null,
+        matchedCount: 3,
+        modifiedCount: 3,
+        upsertedCount: 0
+      }
+
+34. delete student of roll no 3.
+      stud> db.details.deleteOne({roll:3})
+      { acknowledged: true, deletedCount: 1 }
+      
+
+35. delete students who have cgpa greater than 8.
+      stud> db.details.deleteMany({cgpa:{$gt:8}})
+      { acknowledged: true, deletedCount: 1 }
