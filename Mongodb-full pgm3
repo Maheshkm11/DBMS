@@ -1,0 +1,157 @@
+rna> use univ
+switched to db univ
+univ> db.createCollection("s1mca")
+{ ok: 1 }
+univ> db.s2mca.insert({roll:1,name:'appu',age:20,dpmt:'IT',sub:['phy','che',gen:'M']})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:73)
+
+> 1 | db.s2mca.insert({roll:1,name:'appu',age:20,dpmt:'IT',sub:['phy','che',gen:'M']})
+    |                                                                          ^
+  2 |
+
+univ> db.s2mca.insert({roll:1,name:'appu',age:20,dpmt:'IT',sub:['phy','che'],gen:'M'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613b48302a3c424798bf205') }
+}
+univ> db.s2mca.insert({roll:2,name:'hari',age:21,dpmt:'MCA',sub:['phy','cs'],gen:'M'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613b4b302a3c424798bf206') }
+}
+univ> db.s2mca.insert({roll:3,name:'parvana',age:21,dpmt:'MCA',sub:['mat','cs'],gen:'F'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613b4d602a3c424798bf207') }
+}
+univ> db.s2mca.insert({roll:4,name:'bilu',age:21,dpmt:'ECE',sub:['mat','chem'],gen:'F'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613b51b02a3c424798bf208') }
+}
+univ> db.s2mca.find()
+[
+  {
+    _id: ObjectId('6613b48302a3c424798bf205'),
+    roll: 1,
+    name: 'appu',
+    age: 20,
+    dpmt: 'IT',
+    sub: [ 'phy', 'che' ],
+    gen: 'M'
+  },
+  {
+    _id: ObjectId('6613b4b302a3c424798bf206'),
+    roll: 2,
+    name: 'hari',
+    age: 21,
+    dpmt: 'MCA',
+    sub: [ 'phy', 'cs' ],
+    gen: 'M'
+  },
+  {
+    _id: ObjectId('6613b4d602a3c424798bf207'),
+    roll: 3,
+    name: 'parvana',
+    age: 21,
+    dpmt: 'MCA',
+    sub: [ 'mat', 'cs' ],
+    gen: 'F'
+  },
+  {
+    _id: ObjectId('6613b51b02a3c424798bf208'),
+    roll: 4,
+    name: 'bilu',
+    age: 21,
+    dpmt: 'ECE',
+    sub: [ 'mat', 'chem' ],
+    gen: 'F'
+  }
+]
+univ> db.gen.find({ code: /F/ });
+
+univ> db.gen.find({ code: /M/ });
+
+univ> db.gen.find({ code: /F/ });
+
+univ> db.s2mca.find({gen:/F/});
+[
+  {
+    _id: ObjectId('6613b4d602a3c424798bf207'),
+    roll: 3,
+    name: 'parvana',
+    age: 21,
+    dpmt: 'MCA',
+    sub: [ 'mat', 'cs' ],
+    gen: 'F'
+  },
+  {
+    _id: ObjectId('6613b51b02a3c424798bf208'),
+    roll: 4,
+    name: 'bilu',
+    age: 21,
+    dpmt: 'ECE',
+    sub: [ 'mat', 'chem' ],
+    gen: 'F'
+  }
+]
+univ> db.s2mca.find({gen:/M/});
+[
+  {
+    _id: ObjectId('6613b48302a3c424798bf205'),
+    roll: 1,
+    name: 'appu',
+    age: 20,
+    dpmt: 'IT',
+    sub: [ 'phy', 'che' ],
+    gen: 'M'
+  },
+  {
+    _id: ObjectId('6613b4b302a3c424798bf206'),
+    roll: 2,
+    name: 'hari',
+    age: 21,
+    dpmt: 'MCA',
+    sub: [ 'phy', 'cs' ],
+    gen: 'M'
+  }
+]
+univ> db.s2mca.aggregate([{$match:{dpmt:'IT'}},{$count:'total stud in IT'}]);
+[ { 'total stud in IT': 1 } ]
+univ> db.s2mca.aggregate([{$match:{dpmt:'MCA'}},{$count:'total stud in MCA'}]);
+[ { 'total stud in MCA': 2 } ]
+univ> db.s2mca.aggregate([{$match:{dpmt:'ECE'}},{$count:'total stud in ECE'}]);
+[ { 'total stud in ECE': 1 } ]
+univ> db.s2mca.aggregate([{$group:{_id:'$dpmt',total_std:{$sum:1}}}])
+[
+  { _id: 'IT', total_std: 1 },
+  { _id: 'MCA', total_std: 2 },
+  { _id: 'ECE', total_std: 1 }
+]
+univ>
+univ> db.s2mca.aggregate([{$match:{gen:'M'}},{$group:{_id:'$dpmt',total_malestd:{$sum:1}}}])
+[ { _id: 'IT', total_malestd: 1 }, { _id: 'MCA', total_malestd: 1 } ]
+univ> db.s2mca.aggregate([$group:{id:'$dpmt',avg_mark:{$sum:1}}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:26)
+
+> 1 | db.s2mca.aggregate([$group:{id:'$dpmt',avg_mark:{$sum:1}}}])
+    |                           ^
+  2 |
+
+univ> db.s2mca.aggregate([$group:{_id:'$dpmt',avg_mark:{$sum:1}}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:26)
+
+> 1 | db.s2mca.aggregate([$group:{_id:'$dpmt',avg_mark:{$sum:1}}}])
+    |                           ^
+  2 |
+
+univ> db.s2mca.aggregate([{$group:{_id:'$dpmt',avg_mark:{$sum:1}}}])
+[
+  { _id: 'ECE', avg_mark: 1 },
+  { _id: 'IT', avg_mark: 1 },
+  { _id: 'MCA', avg_mark: 2 }
+]
+univ>
